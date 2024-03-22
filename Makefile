@@ -264,7 +264,7 @@ FLASH_ADDRESS ?= 0x08000000
 
 OCD=openocd
 OCD_DIR ?= /usr/local/share/openocd/scripts # this value works, but for some reason this folder only exists at path -> /opt/homebrew/Cellar/open-ocd/0.11.0/share/openocd/scripts
-PGM_DEVICE ?= interface/stlink.cfg
+PGM_DEVICE ?= interface/stlink-v2.cfg #jlink.cfg seems to work wtih HAOYU USB-MiniJTAG EX programmer, but throws errors when trying to programm target
 OCDFLAGS = -f $(PGM_DEVICE) -f target/$(CHIPSET).cfg
 
 program:
