@@ -32,9 +32,6 @@ $(LIB_PATH)/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.c \
 $(LIB_PATH)/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c \
 $(LIB_PATH)/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_can.c \
 $(LIB_PATH)/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c \
-$(LIB_PATH)/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd.c \
-$(LIB_PATH)/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd_ex.c \
-$(LIB_PATH)/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_usb.c \
 $(LIB_PATH)/middleware/FreeRTOS/Source/croutine.c \
 $(LIB_PATH)/middleware/FreeRTOS/Source/event_groups.c \
 $(LIB_PATH)/middleware/FreeRTOS/Source/list.c \
@@ -45,20 +42,20 @@ $(LIB_PATH)/middleware/FreeRTOS/Source/timers.c \
 $(LIB_PATH)/middleware/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.c \
 $(LIB_PATH)/middleware/FreeRTOS/Source/portable/MemMang/heap_4.c \
 $(LIB_PATH)/middleware/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.c \
-$(LIB_PATH)/middleware/USB_DEVICE/App/usb_device.c \
-$(LIB_PATH)/middleware/USB_DEVICE/App/usbd_desc.c \
-$(LIB_PATH)/middleware/USB_DEVICE/App/usbd_cdc_if.c \
-$(LIB_PATH)/middleware/USB_DEVICE/Target/usbd_conf.c \
-$(LIB_PATH)/middleware/STM32_USB_Device_Library/Core/Src/usbd_core.c \
-$(LIB_PATH)/middleware/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c \
-$(LIB_PATH)/middleware/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c \
-$(LIB_PATH)/middleware/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.c \
 $(LIB_PATH)/system/Src/freertos.c \
 $(LIB_PATH)/system/Src/stm32f4xx_hal_timebase_tim.c \
 $(LIB_PATH)/system/Src/stm32f4xx_hal_msp.c \
 $(LIB_PATH)/system/Src/stm32f4xx_it.c \
 $(LIB_PATH)/system/Src/system_stm32f4xx.c \
-$(LIB_PATH)/system/Src/system_clock_config.c
+$(LIB_PATH)/system/Src/system_clock_config.c \
+third_party/tinyusb/src/tusb.c \
+third_party/tinyusb/src/common/tusb_fifo.c \
+third_party/tinyusb/src/device/usbd.c \
+third_party/tinyusb/src/class/cdc/cdc_device.c \
+third_party/tinyusb/src/host/usbh.c \
+third_party/tinyusb/src/portable/synopsys/dwc2/dcd_dwc2.c \
+third_party/tinyusb/src/portable/synopsys/dwc2/hcd_dwc2.c \
+third_party/tinyusb/src/portable/synopsys/dwc2/dwc2_common.c
 
 # C_SOURCES += $(shell find $(LIB_PATH)/middleware/STM32_USB_Device_Library -name '*.c')
 # C_SOURCES += $(shell find $(LIB_PATH)/middleware/USB_DEVICE -name '*.c')
@@ -83,15 +80,12 @@ C_INCLUDES += \
 -I$(LIB_PATH)/middleware/FreeRTOS/Source/include \
 -I$(LIB_PATH)/middleware/FreeRTOS/Source/CMSIS_RTOS_V2 \
 -I$(LIB_PATH)/middleware/FreeRTOS/Source/portable/GCC/ARM_CM4F \
--I$(LIB_PATH)/middleware/STM32_USB_Device_Library/Class/CDC/Inc \
--I$(LIB_PATH)/middleware/STM32_USB_Device_Library/Core/Inc \
--I$(LIB_PATH)/middleware/USB_DEVICE/App \
--I$(LIB_PATH)/middleware/USB_DEVICE/Target \
 -I$(LIB_PATH)/misc \
 -I$(LIB_PATH)/tasks \
 -I$(LIB_PATH)/system/Inc \
 -I$(LIB_PATH)/utils \
 -I$(LIB_PATH)/DSP \
+-Ithird_party/tinyusb/src \
 
 # C++ includes
 CPP_INCLUDES = \
@@ -163,7 +157,14 @@ AS_DEFS =
 C_DEFS =  \
 -DUSE_HAL_DRIVER \
 -DARM_MATH_CM4 \
--DSTM32F446xx
+-DSTM32F446xx \
+-DCFG_TUSB_MCU=OPT_MCU_STM32F4 \
+-DCFG_TUSB_OS=OPT_OS_FREERTOS \
+-DCFG_TUSB_DEBUG=$(USB_DEBUG) \
+-DBOARD_TUD_RHPORT=0 \
+-DBOARD_TUD_MAX_SPEED=OPT_MODE_FULL_SPEED \
+-DBOARD_TUH_RHPORT=0 \
+-DBOARD_TUH_MAX_SPEED=OPT_MODE_FULL_SPEED
 
 
 

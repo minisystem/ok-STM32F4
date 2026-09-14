@@ -14,7 +14,7 @@ uint8_t i2c_rx_err = 0;
 void task_I2C_manager(void *pvParameters)
 {
     uint32_t start_delay = pvParameters ? (uint32_t)pvParameters : 0u;
-    
+
     th_i2c_manager = xTaskGetCurrentTaskHandle();
 
     if (!i2c_queue)

@@ -1,7 +1,12 @@
 #include "Logger.h"
+#include "common.h"
+#include "usb_dual_role.h"
+
+#include <stdio.h>
+#include <string.h>
 
 void Logger::init() {
-    MX_USB_DEVICE_Init();
+    usb_dual_role_init();
 }
 
 /**
@@ -31,9 +36,8 @@ uint8_t Logger::log(const char *string, ...)
     vsnprintf(buffer, sizeof(buffer), string, args);
 
     va_end(args); // Cleanup the argument list
-    // note: you can remove this while loop for non-blocking transmit
-    while(CDC_Transmit_FS((uint8_t *)buffer, strlen(buffer)) == USBD_BUSY);
-    return USBD_OK;
+
+    return usb_cdc_write(buffer, strlen(buffer), 10) ? 1 : 0;
 }
 
 uint8_t Logger::log(int number)

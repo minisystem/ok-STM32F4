@@ -296,6 +296,7 @@ __weak void OK_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
  */
 extern "C" void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
+    HardwareTimer::RoutePeriodElapsedCallback(htim);
     OK_TIM_PeriodElapsedCallback(htim);              // to be defined in user application
     if (htim->Instance == TIM5)                      // TIM5 is being used for HAL ticker ie. for all HAL Peripherals...
     {

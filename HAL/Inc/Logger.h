@@ -1,8 +1,7 @@
 #pragma once
 
+#include <stdint.h>
 #include <stdarg.h>
-#include "usb_device.h"
-#include "usbd_cdc_if.h"
 
 class Logger {
 public:

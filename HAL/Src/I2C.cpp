@@ -98,47 +98,40 @@ void I2C::init()
 
 HAL_StatusTypeDef I2C::write(int address, uint8_t *data, int length, bool repeated /*=false*/)
 {
-    // if (_mode == NonBlocking)
-    // {
-    //     return OK_I2C_NON_BLOCKING_TRANSMIT(&_hi2c, (uint16_t)address, data, (uint16_t)length, 50);
-    // }
-
+    UNUSED(repeated);
     mutex.lock();
     HAL_StatusTypeDef status;
+
     while (HAL_I2C_GetState(&_hi2c) != HAL_I2C_STATE_READY)
     {
         vTaskDelay(pdMS_TO_TICKS(3));
     };
 
     status = HAL_I2C_Master_Transmit(&_hi2c, address, data, length, HAL_MAX_DELAY);
-    if (status != HAL_OK)
-    {
+    if (status != HAL_OK) {
         OK_ERROR_HANDLER(status, "HAL_I2C_Master_Transmit");
     }
+
     mutex.unlock();
     return status;
 }
 
 HAL_StatusTypeDef I2C::read(int address, uint8_t *data, int length, bool repeated /*=false*/)
 {
-
-    // if (_mode == NonBlocking)
-    // {
-    //     return OK_I2C_NON_BLOCKING_RECEIVE(&_hi2c, (uint16_t)address, data, (uint16_t)length, 50);
-    // }
-
+    UNUSED(repeated);
     mutex.lock();
     HAL_StatusTypeDef status;
-    
+
     while (HAL_I2C_GetState(&_hi2c) != HAL_I2C_STATE_READY)
     {
         vTaskDelay(pdMS_TO_TICKS(3));
-    };
+    }
 
     status = HAL_I2C_Master_Receive(&_hi2c, address, data, length, HAL_MAX_DELAY);
     if (status != HAL_OK) {
         OK_ERROR_HANDLER(status, "HAL_I2C_Master_Receive");
     }
+
     mutex.unlock();
     return status;
 }
