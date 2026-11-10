@@ -51,8 +51,9 @@ $(LIB_PATH)/system/Src/system_clock_config.c \
 third_party/tinyusb/src/tusb.c \
 third_party/tinyusb/src/common/tusb_fifo.c \
 third_party/tinyusb/src/device/usbd.c \
-third_party/tinyusb/src/class/cdc/cdc_device.c \
+third_party/tinyusb/src/class/midi/midi_device.c \
 third_party/tinyusb/src/host/usbh.c \
+third_party/tinyusb/src/class/midi/midi_host.c \
 third_party/tinyusb/src/portable/synopsys/dwc2/dcd_dwc2.c \
 third_party/tinyusb/src/portable/synopsys/dwc2/hcd_dwc2.c \
 third_party/tinyusb/src/portable/synopsys/dwc2/dwc2_common.c
